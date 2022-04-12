@@ -49,10 +49,17 @@ public class MovieServiceImpl implements MovieService{
 		existingMovie.setGenre_id(movie.getGenre_id());
 		existingMovie.setTitle(movie.getTitle());
 		existingMovie.setYear_released(movie.getYear_released());
+		existingMovie.setStudio(movie.getStudio());
 		
 		movieRepository.save(existingMovie);
 		
 		return existingMovie;
+	}
+	
+	@Override
+	public void deleteMovie(int id) {
+		Movie existingMovie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Movie", "Id", id));
+		movieRepository.deleteById(id);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +47,14 @@ public class MovieController {
 	}
 	
 	@PutMapping("{movie_id}")
-	public ResponseEntity<Movie> updateMovie(@PathVariable("movie_id") int movieId, @RequestBody Movie movie){
-		return new ResponseEntity<Movie>(movieService.updateMovie(movie, movieId), HttpStatus.OK);
+	public ResponseEntity<Movie> updateMovie(@PathVariable("movie_id") int movie_Id, @RequestBody Movie movie){
+		return new ResponseEntity<Movie>(movieService.updateMovie(movie, movie_Id), HttpStatus.OK);
+	}
+	
+	@DeleteMapping("{movie_id}")
+	public ResponseEntity<String> deleteMovie(@PathVariable("movie_id") int movieId){
+		movieService.deleteMovie(movieId);
+		
+		return new ResponseEntity<String>("Movie gone!", HttpStatus.OK);
 	}
 }
