@@ -6,6 +6,8 @@ package com.promineo.flockfuster.model;
 
 
 import javax.persistence.Entity;
+
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,3 +48,5 @@ public class Movie {
 	
 
 }
+
+//set up an entity for each table. I will want one to one and many to many. I can populate the table. Look at the options orders tables
