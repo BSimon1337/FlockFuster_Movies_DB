@@ -68,7 +68,7 @@ public class MovieController {
 	}
 	
 	@PutMapping("movie/{movie_id}/actors/{actors_id}")
-	public List<Actors> updateCastMembers(@PathVariable("movie_id") int movieId, int actorsId, @RequestBody Movie movie){
+	public List<Actors> updateCastMembers(@PathVariable("movie_id") int movieId, @PathVariable("actors_id")int actorsId, @RequestBody Movie movie){
 		Set<Actors> actorsSet = movieService.updateCastMembers(movie, movieId, actorsId);
 		List<Actors> actorsList = new ArrayList<>(actorsSet);
 		return actorsList;
