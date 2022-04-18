@@ -9,6 +9,7 @@ public class FlockFusterApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FlockFusterApplication.class, args);
+		
 	}
 
 }

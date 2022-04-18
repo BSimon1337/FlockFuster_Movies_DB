@@ -1,19 +1,24 @@
 package com.promineo.flockfuster.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.promineo.flockfuster.exception.ResourceNotFoundException;
+import com.promineo.flockfuster.model.Actors;
 import com.promineo.flockfuster.model.Directors;
+import com.promineo.flockfuster.model.Movie;
 import com.promineo.flockfuster.repository.DirectorsRepository;
+import com.promineo.flockfuster.repository.MovieRepository;
 import com.promineo.flockfuster.service.DirectorsService;
 
 @Service
 public class DirectorsServiceImpl implements DirectorsService {
 	
 	private DirectorsRepository directorsRepository;
+	private MovieRepository movieRepository;
 	
 	@Autowired
 	public DirectorsServiceImpl(DirectorsRepository directorsRepository) {
@@ -54,5 +59,26 @@ public class DirectorsServiceImpl implements DirectorsService {
 		Directors existingDirector = directorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Director", "Id", id));
 		directorsRepository.deleteById(id);
 	}
+
+	//@Override
+	//public List<Movie> getAllDirectorMovies(int id) {
+		//Directors currentDirector = directorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Director", "id", id));
+		//return currentDirector.getMovies();
+	//}
+
+	//@Override
+	//public List<Movie> updateDirectorMovies(Directors director, int movieId, int directorId) {
+		//Directors existingDirector = directorsRepository.findById(directorId).orElseThrow( () -> new ResourceNotFoundException("Director", "id", directorId));
+		//Movie existingMovie = movieRepository.findById(movieId).orElseThrow( () -> new ResourceNotFoundException("Movie", "id", movieId));
+		
+		//List<Movie> directorMovies = existingDirector.getMovies();
+		
+		//directorMovies.add(existingMovie);
+		//existingDirector.setMovies(directorMovies);
+		
+		//directorsRepository.save(existingDirector);
+		
+		//return existingDirector.getMovies();
+	//}
 
 }

@@ -2,6 +2,7 @@ package com.promineo.flockfuster.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,14 +14,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.promineo.flockfuster.model.Actors;
+import com.promineo.flockfuster.model.Movie;
 import com.promineo.flockfuster.service.ActorsService;
+import com.promineo.flockfuster.service.MovieService;
 
 @RestController
 @RequestMapping("FlockFuster/actors")
 public class ActorsController {
 	
+	
 	private ActorsService actorsService;
+	
 
 	public ActorsController(ActorsService actorsService) {
 		super();
@@ -51,5 +57,9 @@ public class ActorsController {
 		
 		return new ResponseEntity<String>("Actor was recast!", HttpStatus.OK);
 	}
-
+	
+	@GetMapping("actor/{actor_id}/movie")
+	public List<Movie> getAllActorMovies(@PathVariable("actor_id") int actorId){
+		return actorsService.getAllActorMovies(actorId);
+	}
 }

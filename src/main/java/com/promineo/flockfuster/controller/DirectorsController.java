@@ -1,6 +1,8 @@
 package com.promineo.flockfuster.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.promineo.flockfuster.model.Actors;
 import com.promineo.flockfuster.model.Directors;
+import com.promineo.flockfuster.model.Movie;
 import com.promineo.flockfuster.service.DirectorsService;
+import com.promineo.flockfuster.service.MovieService;
 
 
 @RestController
@@ -22,6 +27,7 @@ import com.promineo.flockfuster.service.DirectorsService;
 public class DirectorsController {
 	
 	private DirectorsService directorsService;
+	private MovieService movieService;
 
 	public DirectorsController(DirectorsService directorsService) {
 		super();
@@ -52,5 +58,11 @@ public class DirectorsController {
 		
 		return new ResponseEntity<String>("Director fired!", HttpStatus.OK);
 	}
+	
+	//@GetMapping("directors/{director_id}/movies")
+	//public List<Movie> getAllDirectorMovies(@PathVariable("director_id") int directorId){
+		//return directorsService.getAllDirectorMovies(directorId);
+	//}
+	
 
 }

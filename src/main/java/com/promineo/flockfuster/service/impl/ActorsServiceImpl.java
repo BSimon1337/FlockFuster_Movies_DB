@@ -5,15 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.promineo.flockfuster.exception.ResourceNotFoundException;
 import com.promineo.flockfuster.model.Actors;
+import com.promineo.flockfuster.model.Movie;
 import com.promineo.flockfuster.repository.ActorsRepository;
 import com.promineo.flockfuster.service.ActorsService;
 
 @Service
 public class ActorsServiceImpl implements ActorsService{
 	
+	
 	private ActorsRepository actorsRepository;
+	
 	@Autowired
 	public ActorsServiceImpl(ActorsRepository actorsRepository) {
 		super();
@@ -53,5 +57,13 @@ public class ActorsServiceImpl implements ActorsService{
 		Actors existingActor = actorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor", "Id", id));
 		actorsRepository.deleteById(id);
 	}
+
+	@Override
+	public List<Movie> getAllActorMovies(int id) {
+		Actors currentActor = actorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor", "id", id));
+		return currentActor.getMovies();
+	}
+
+	
 
 }

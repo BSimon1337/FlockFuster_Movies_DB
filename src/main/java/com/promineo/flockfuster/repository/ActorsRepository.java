@@ -7,5 +7,6 @@ import com.promineo.flockfuster.model.Actors;
 
 @Repository
 public interface ActorsRepository extends JpaRepository<Actors, Integer>{
+	
 
 }
