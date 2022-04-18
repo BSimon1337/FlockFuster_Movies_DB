@@ -1,10 +1,13 @@
 package com.promineo.flockfuster.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.promineo.flockfuster.exception.ResourceNotFoundException;
 import com.promineo.flockfuster.model.Actors;
@@ -60,25 +63,27 @@ public class DirectorsServiceImpl implements DirectorsService {
 		directorsRepository.deleteById(id);
 	}
 
-	//@Override
-	//public List<Movie> getAllDirectorMovies(int id) {
-		//Directors currentDirector = directorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Director", "id", id));
-		//return currentDirector.getMovies();
-	//}
+	@GetMapping("director/{director_id}/movies")
+	public List<Movie> getAllDirectorMovies(@PathVariable("director_id") int directorId){
+		Directors currentDirector = directorsRepository.findById(directorId).orElseThrow(() -> new ResourceNotFoundException("Director", "id", directorId));
+		Set<Movie> movieSet = currentDirector.getMovies();
+		List<Movie> movieList = new ArrayList<>(movieSet);
+		return movieList;
+	}
 
-	//@Override
-	//public List<Movie> updateDirectorMovies(Directors director, int movieId, int directorId) {
-		//Directors existingDirector = directorsRepository.findById(directorId).orElseThrow( () -> new ResourceNotFoundException("Director", "id", directorId));
-		//Movie existingMovie = movieRepository.findById(movieId).orElseThrow( () -> new ResourceNotFoundException("Movie", "id", movieId));
+	@Override
+	public Set<Movie> updateDirectorMovies(int movieId, int directorId) {
+		Directors existingDirector = directorsRepository.findById(directorId).orElseThrow( () -> new ResourceNotFoundException("Director", "id", directorId));
+		Movie existingMovie = movieRepository.findById(movieId).orElseThrow( () -> new ResourceNotFoundException("Movie", "id", movieId));
 		
-		//List<Movie> directorMovies = existingDirector.getMovies();
+		Set<Movie> directorMovies = existingDirector.getMovies();
 		
-		//directorMovies.add(existingMovie);
-		//existingDirector.setMovies(directorMovies);
+		directorMovies.add(existingMovie);
+		existingDirector.setMovies(directorMovies);
 		
-		//directorsRepository.save(existingDirector);
+		directorsRepository.save(existingDirector);
 		
-		//return existingDirector.getMovies();
-	//}
+		return existingDirector.getMovies();
+	}
 
 }

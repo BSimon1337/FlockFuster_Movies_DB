@@ -2,9 +2,6 @@ package com.promineo.flockfuster.model;
 
 
 
-
-
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,12 +62,12 @@ public class Movie {
 	@JsonIgnore
 	private Set<Actors> castMembers = new HashSet<Actors>(); 
 
-	//@ManyToOne
-	//@JoinColumn(name = "director_id")
-	//@JsonIgnore
-	//private Directors director;
+	@ManyToOne
+	@JoinColumn(name = "directors_id")
+	@JsonIgnore
+	private Directors director;
 	
 
 }
 
-//set up an entity for each table. I will want one to one and many to many. I can populate the table. Look at the options orders tables
+

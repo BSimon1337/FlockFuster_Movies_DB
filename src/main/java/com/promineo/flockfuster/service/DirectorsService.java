@@ -1,6 +1,8 @@
 package com.promineo.flockfuster.service;
 
 import java.util.List;
+import java.util.Set;
+
 import com.promineo.flockfuster.model.Directors;
 import com.promineo.flockfuster.model.Movie;
 
@@ -19,8 +21,8 @@ public interface DirectorsService {
 	
 	void deleteDirector(int id);
 	
-	//List<Movie> getAllDirectorMovies(int id);
+	List<Movie> getAllDirectorMovies(int id);
 	
-	//List<Movie> updateDirectorMovies(Directors director, int movieId, int directorId);
+	Set<Movie> updateDirectorMovies(int movieId, int directorId);
 
 }

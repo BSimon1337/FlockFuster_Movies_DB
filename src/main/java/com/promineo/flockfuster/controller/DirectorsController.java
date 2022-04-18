@@ -32,6 +32,7 @@ public class DirectorsController {
 	public DirectorsController(DirectorsService directorsService) {
 		super();
 		this.directorsService = directorsService;
+		this.movieService = movieService;
 	}
 	@PostMapping
 	public ResponseEntity<Directors> saveDirectors(@RequestBody Directors directors){
@@ -59,10 +60,15 @@ public class DirectorsController {
 		return new ResponseEntity<String>("Director fired!", HttpStatus.OK);
 	}
 	
-	//@GetMapping("directors/{director_id}/movies")
-	//public List<Movie> getAllDirectorMovies(@PathVariable("director_id") int directorId){
-		//return directorsService.getAllDirectorMovies(directorId);
-	//}
+	@GetMapping("directors/{director_id}/movies")
+	public List<Movie> getAllDirectorMovies(@PathVariable("director_id") int directorId){
+		return directorsService.getAllDirectorMovies(directorId);
+	}
 	
-
+	@PutMapping("director/{director_id}/movies/{movie_id}")
+	public List<Movie> updateDirectorMovies(@PathVariable("movie_id") int movieId, @PathVariable("director_id")int directorId){
+		Set<Movie> movieSet = directorsService.updateDirectorMovies(movieId, directorId);
+		List<Movie> movieList = new ArrayList<>(movieSet);
+		return movieList;
+	}
 }

@@ -1,6 +1,7 @@
 package com.promineo.flockfuster.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,12 +33,9 @@ public class Directors {
 	@Column(value="last_name")
 	private String last_name;
 	
-	//@OneToMany(mappedBy = "director",
-			//cascade = {CascadeType.PERSIST,
-					  //CascadeType.MERGE,
-					 // CascadeType.DETACH})
-	//@JsonIgnore
-	//private List<Movie> movies;
+	@OneToMany(mappedBy = "director")
+	@JsonIgnore
+	private Set<Movie> movies;
 	
 
 }
