@@ -22,7 +22,7 @@ public interface MovieService {
 	
 	List<Actors> getAllCastMembers(int id);
 	
-	Set<Actors> updateCastMembers(Movie movie, int actorId, int movieId);
+	Set<Actors> updateCastMembers(int actorId, int movieId);
 
 	
 }

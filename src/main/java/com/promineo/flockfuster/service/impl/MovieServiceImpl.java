@@ -79,7 +79,7 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	@Override
-	public Set<Actors> updateCastMembers(Movie movie, int actorId, int movieId) {
+	public Set<Actors> updateCastMembers(int actorId, int movieId) {
 		Movie existingMovie = movieRepository.findById(movieId).orElseThrow( () -> new ResourceNotFoundException("Movie", "id", movieId));
 		Actors existingActor = actorsRepository.findById(actorId).orElseThrow( () -> new ResourceNotFoundException("Actor", "id", actorId));
 		
