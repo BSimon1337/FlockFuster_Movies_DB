@@ -1,16 +1,13 @@
 package com.promineo.flockfuster.service.impl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.promineo.flockfuster.exception.ResourceNotFoundException;
-import com.promineo.flockfuster.model.Actors;
 import com.promineo.flockfuster.model.Directors;
 import com.promineo.flockfuster.model.Movie;
 import com.promineo.flockfuster.repository.DirectorsRepository;
@@ -23,10 +20,12 @@ public class DirectorsServiceImpl implements DirectorsService {
 	private DirectorsRepository directorsRepository;
 	private MovieRepository movieRepository;
 	
+
 	@Autowired
-	public DirectorsServiceImpl(DirectorsRepository directorsRepository) {
+	public DirectorsServiceImpl(DirectorsRepository directorsRepository, MovieRepository movieRepository) {
 		super();
 		this.directorsRepository = directorsRepository;
+		this.movieRepository = movieRepository;
 	}
 
 	@Override
@@ -63,18 +62,11 @@ public class DirectorsServiceImpl implements DirectorsService {
 		directorsRepository.deleteById(id);
 	}
 
-	@GetMapping("director/{director_id}/movies")
-	public List<Movie> getAllDirectorMovies(@PathVariable("director_id") int directorId){
-		Directors currentDirector = directorsRepository.findById(directorId).orElseThrow(() -> new ResourceNotFoundException("Director", "id", directorId));
-		Set<Movie> movieSet = currentDirector.getMovies();
-		List<Movie> movieList = new ArrayList<>(movieSet);
-		return movieList;
-	}
 
 	@Override
 	public Set<Movie> updateDirectorMovies(int movieId, int directorId) {
 		Directors existingDirector = directorsRepository.findById(directorId).orElseThrow( () -> new ResourceNotFoundException("Director", "id", directorId));
-		Movie existingMovie = movieRepository.findById(movieId).orElseThrow( () -> new ResourceNotFoundException("Movie", "id", movieId));
+		Movie existingMovie = movieRepository.findById(movieId).orElseThrow(() -> new ResourceNotFoundException("Movie", "id", movieId));
 		
 		Set<Movie> directorMovies = existingDirector.getMovies();
 		
@@ -86,4 +78,15 @@ public class DirectorsServiceImpl implements DirectorsService {
 		return existingDirector.getMovies();
 	}
 
+	@Override
+	public List<Movie> getAllDirectorMovies(int id) {
+		Directors currentDirector = directorsRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Director", "id", id)); 
+		Set<Movie> movieSet = currentDirector.getMovies();
+		List<Movie> movieList = new ArrayList<>(movieSet);
+		return movieList;
+	}
+
 }
+
+
+

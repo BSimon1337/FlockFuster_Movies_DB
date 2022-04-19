@@ -27,12 +27,10 @@ import com.promineo.flockfuster.service.MovieService;
 public class DirectorsController {
 	
 	private DirectorsService directorsService;
-	private MovieService movieService;
 
 	public DirectorsController(DirectorsService directorsService) {
 		super();
 		this.directorsService = directorsService;
-		this.movieService = movieService;
 	}
 	@PostMapping
 	public ResponseEntity<Directors> saveDirectors(@RequestBody Directors directors){
@@ -66,7 +64,7 @@ public class DirectorsController {
 	}
 	
 	@PutMapping("director/{director_id}/movies/{movie_id}")
-	public List<Movie> updateDirectorMovies(@PathVariable("movie_id") int movieId, @PathVariable("director_id")int directorId){
+	public List<Movie> updateDirectorMovies(@PathVariable("director_id") int directorId, @PathVariable("movie_id")int movieId){
 		Set<Movie> movieSet = directorsService.updateDirectorMovies(movieId, directorId);
 		List<Movie> movieList = new ArrayList<>(movieSet);
 		return movieList;
