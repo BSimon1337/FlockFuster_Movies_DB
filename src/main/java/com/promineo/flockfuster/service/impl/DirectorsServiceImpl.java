@@ -80,8 +80,7 @@ public class DirectorsServiceImpl implements DirectorsService {
 
 	@Override
 	public List<Movie> getAllDirectorMovies(int id) {
-		Directors currentDirector = directorsRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Director", "id", id)); 
-		Set<Movie> movieSet = currentDirector.getMovies();
+		Set<Movie> movieSet = movieRepository.getAllByDirectorId(id);
 		List<Movie> movieList = new ArrayList<>(movieSet);
 		return movieList;
 	}

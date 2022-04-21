@@ -1,9 +1,9 @@
 package com.promineo.flockfuster.model;
 
 import java.util.List;
+
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
