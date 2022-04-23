@@ -8,5 +8,8 @@ import com.promineo.flockfuster.model.Actors;
 @Repository
 public interface ActorsRepository extends JpaRepository<Actors, Integer>{
 	
+	//@Query("SELECT a FROM Actors a WHERE a.movies_id = ?1")
+	//Set<Actors> getAllCastMembersByMovieId(int id);
+	
 
 }

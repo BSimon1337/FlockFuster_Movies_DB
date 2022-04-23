@@ -1,6 +1,8 @@
 package com.promineo.flockfuster.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.promineo.flockfuster.exception.ResourceNotFoundException;
 import com.promineo.flockfuster.model.Actors;
 import com.promineo.flockfuster.model.Movie;
 import com.promineo.flockfuster.repository.ActorsRepository;
+import com.promineo.flockfuster.repository.MovieRepository;
 import com.promineo.flockfuster.service.ActorsService;
 
 @Service
@@ -17,12 +20,15 @@ public class ActorsServiceImpl implements ActorsService{
 	
 	
 	private ActorsRepository actorsRepository;
+	private MovieRepository movieRepository;
 	
 	@Autowired
-	public ActorsServiceImpl(ActorsRepository actorsRepository) {
+	public ActorsServiceImpl(ActorsRepository actorsRepository, MovieRepository movieRepository) {
 		super();
 		this.actorsRepository = actorsRepository;
+		this.movieRepository = movieRepository;
 	}
+
 
 	@Override
 	public Actors saveActors(Actors actors) {
@@ -60,8 +66,9 @@ public class ActorsServiceImpl implements ActorsService{
 
 	@Override
 	public List<Movie> getAllActorMovies(int id) {
-		Actors currentActor = actorsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor", "id", id));
-		return currentActor.getMovies();
+		Set<Movie> movieSet = movieRepository.getAllByActorId(id);
+		List<Movie> movieList = new ArrayList<>(movieSet);
+		return movieList;
 	}
 
 	
